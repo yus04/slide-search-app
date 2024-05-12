@@ -56,5 +56,12 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
   }
 }
 
+
 output id string = functionApp.id
 output name string = functionApp.name
+// output key string = listKeys(resourceId('Microsoft.Web/sites/functions', 'functions-gmgowblgxn7sm', 'http_trigger'),'2021-02-01').default
+// output key string = functionApp.properties.
+// output key string = functionKey.value
+// output key string = listkeys(concat(functionApp.id, '/functions/', name), '2023-12-01').masterKey
+// output key string = functionApp.listKeys().masterKey
+// output key string = functionApp.listkeys().properties.masterKey

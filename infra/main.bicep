@@ -2,7 +2,7 @@ targetScope = 'subscription'
 
 param environmentName string
 param location string = 'japaneast'
-param resourceGroupName string
+param resourceGroupName string = environmentName
 
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 
@@ -77,11 +77,14 @@ output AZURE_RESOURCE_GROUP string = resourceGroup.name
 
 output AZURE_SEARCH_INDEX string = aiSearchIndexName
 output AZURE_SEARCH_SERVICE string = aiSearch.outputs.name
+output AZURE_SEARCH_SERVICE_KEY string = aiSearch.outputs.key
 
 output AZURE_OPENAI_SERVICE string = aoai.outputs.name
 output AZURE_OPENAI_GPT_4V_DEPLOYMENT string = openAiGpt4VTurboDeploymentName
 
 output AZURE_STORAGE_ACCOUNT string = storage.outputs.name
 output AZURE_STORAGE_CONTAINER string = storageContainerName
+output AZURE_STORAGE_KEY string = storage.outputs.key
 
 output AZURE_FUNCTIONS string = functions.outputs.name
+// output AZURE_FUNCTIONS_KEY string = functions.outputs.key
