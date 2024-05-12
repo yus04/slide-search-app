@@ -4,9 +4,8 @@ services:
     project: ./functions
     language: py
     host: function
-    # hooks:
-    #   postprovision:
-    #     shell: sh
-    #     run: ./src/setupaisearch.py
-    #     interactive: true
-    #     continueOnError: false
+hooks:
+  postprovision:
+    posix:
+      shell: sh
+      run: ./src/setupaisearch.sh
