@@ -1,7 +1,7 @@
 name: slide-search-app
 services:
   functions:
-    project: ./src
+    project: ./functions
     language: py
     host: function
     # hooks:
