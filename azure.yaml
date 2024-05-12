@@ -1,0 +1,12 @@
+name: slide-search-app
+services:
+  functions:
+    project: ./src
+    language: py
+    host: function
+    # hooks:
+    #   postprovision:
+    #     shell: sh
+    #     run: ./src/setupaisearch.py
+    #     interactive: true
+    #     continueOnError: false
