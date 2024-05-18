@@ -5,3 +5,8 @@
 
 ### 資料データの URL
 https://www.ipa.go.jp/security/jisec/seminar/ps6vr7000000qsq5-att/cc_semi_20170317.pdf
+
+## 参考記事
+### Azure Functions のアプリケーション設定のリファレンス
+- Azure Functions の設定に必要な環境変数について
+https://learn.microsoft.com/ja-jp/azure/azure-functions/functions-app-settings
