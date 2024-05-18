@@ -11,6 +11,7 @@ param openAiGpt4VTurboDeploymentName string = 'gpt-4-turbo-vision-deploy'
 
 param aiSearchIndexName string = 'gptkbindex'
 param storageContainerName string = 'content'
+param fileSharedName string = 'shared'
 
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2024-03-01' = {
   name: resourceGroupName
@@ -43,15 +44,15 @@ module aoai 'aoai.bicep' = {
   }
 }
 
-module storage 'blobstorage.bicep' = {
+module storage 'storage.bicep' = {
   name: 'storage'
   scope: resourceGroup
   params: {
-    name: 'blobstorage${resourceToken}'
+    name: 'storage${resourceToken}'
     location: location
     containers: [
       {
-        name: 'content'
+        name: storageContainerName
         publicAccess: 'None'
       }
     ]
@@ -68,6 +69,9 @@ module functions 'functions.bicep' = {
     azureOpenAiService: aoai.outputs.name
     gptDeployment: openAiGpt4VTurboDeploymentName
     azureOpenAiToken: aoai.outputs.token
+    storageName: storage.outputs.name
+    storageKey: storage.outputs.key
+    fileSharedName: fileSharedName
   }
 }
 
@@ -87,4 +91,3 @@ output AZURE_STORAGE_CONTAINER string = storageContainerName
 output AZURE_STORAGE_KEY string = storage.outputs.key
 
 output AZURE_FUNCTIONS string = functions.outputs.name
-// output AZURE_FUNCTIONS_KEY string = functions.outputs.key

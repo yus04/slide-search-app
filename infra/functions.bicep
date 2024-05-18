@@ -4,6 +4,9 @@ param tags object
 param azureOpenAiService string
 param gptDeployment string
 param azureOpenAiToken string
+param storageName string
+param storageKey string
+param fileSharedName string
 
 resource hostingPlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: name
@@ -29,6 +32,18 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
     siteConfig: {
       appSettings: [
         {
+          name: 'AzureWebJobsStorage'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storageName};AccountKey=${storageKey};EndpointSuffix=core.windows.net'
+        }
+        {
+          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storageName};AccountKey=${storageKey};EndpointSuffix=core.windows.net'
+        }
+        {
+          name: 'WEBSITE_CONTENTSHARE'
+          value: fileSharedName
+        }
+        {
           name: 'AZURE_OPENAI_SERVICE'
           value: azureOpenAiService
         }
@@ -45,6 +60,10 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
           value: azureOpenAiToken
         }
         {
+          name: 'FUNCTIONS_WORKER_RUNTIME'
+          value: 'python'
+        }
+        {
           name: 'FUNCTIONS_EXTENSION_VERSION'
           value: '~4'
         }
@@ -59,6 +78,7 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
 
 output id string = functionApp.id
 output name string = functionApp.name
+// output key string = listKeys('${functionApp.id}/host/default', functionApp.apiVersion).functionKeys.default
 // output key string = listKeys(resourceId('Microsoft.Web/sites/functions', 'functions-gmgowblgxn7sm', 'http_trigger'),'2021-02-01').default
 // output key string = functionApp.properties.
 // output key string = functionKey.value

@@ -22,7 +22,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
       bypass: 'AzureServices'
       defaultAction: 'Allow'
     }
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
   }
 
   resource blobServices 'blobServices' = if (!empty(containers)) {
@@ -36,6 +36,10 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
         publicAccess: contains(container, 'publicAccess') ? container.publicAccess : 'None'
       }
     }]
+  }
+
+  resource fileServices 'fileServices' = {
+    name: 'default'
   }
 }
 
