@@ -27,6 +27,15 @@ module aiSearch 'aisearch.bicep' = {
   }
 }
 
+module aiService 'aiservices.bicep' = {
+  name: 'aiservice'
+  scope: resourceGroup
+  params: {
+    name: 'aiservice-${resourceToken}'
+    location: location
+  }
+}
+
 module aoai 'aoai.bicep' = {
   name: 'aoai'
   scope: resourceGroup
@@ -78,6 +87,8 @@ module functions 'functions.bicep' = {
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_RESOURCE_GROUP string = resourceGroup.name
+
+output AZURE_AI_SERVICES_KEY string = aiService.outputs.key
 
 output AZURE_SEARCH_INDEX string = aiSearchIndexName
 output AZURE_SEARCH_SERVICE string = aiSearch.outputs.name

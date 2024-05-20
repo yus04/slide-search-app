@@ -12,7 +12,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   }
   properties: {
     accessTier: 'Hot'
-    allowBlobPublicAccess: false
+    allowBlobPublicAccess: true
     allowCrossTenantReplication: true
     allowSharedKeyAccess: true
     defaultToOAuthAuthentication: false
@@ -33,7 +33,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
     resource container 'containers' = [for container in containers: {
       name: container.name
       properties: {
-        publicAccess: contains(container, 'publicAccess') ? container.publicAccess : 'None'
+        publicAccess: 'Blob'
       }
     }]
   }
