@@ -4,8 +4,12 @@ services:
     project: ./functions
     language: py
     host: function
-hooks:
-  postprovision:
-    posix:
-      shell: sh
-      run: ./src/setupaisearch.sh
+    hooks:
+      predeploy:
+        posix:
+          shell: sh
+          run: pip install -r requirements.txt
+      postdeploy:
+        posix:
+          shell: sh
+          run: ../src/setupaisearch.sh
