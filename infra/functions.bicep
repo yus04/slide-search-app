@@ -40,6 +40,10 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
           value: 'DefaultEndpointsProtocol=https;AccountName=${storageName};AccountKey=${storageKey};EndpointSuffix=core.windows.net'
         }
         {
+          name: 'SCM_DO_BUILD_DURING_DEPLOYMENT'
+          value: '1'
+        }
+        {
           name: 'WEBSITE_CONTENTSHARE'
           value: fileSharedName
         }
