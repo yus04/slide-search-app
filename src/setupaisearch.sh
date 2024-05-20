@@ -5,7 +5,7 @@ echo "Loading azd .env file from current environment"
 echo ""
 
 # config.json ファイルのパス
-config_file="./.azure/config.json"
+config_file="../.azure/config.json"
 
 # config.json ファイルが存在するか確認
 if [ -f "$config_file" ]; then
@@ -17,7 +17,7 @@ else
 fi
 
 # .env ファイルのパス
-env_file="./.azure/$default_environment/.env"
+env_file="../.azure/$default_environment/.env"
 
 # .env ファイルが存在するか確認
 if [ -f "$env_file" ]; then
@@ -37,24 +37,8 @@ fi
 
 # 必要なパッケージを requirements.txt からインストールする
 echo 'Installing required packages...'
-python -m pip install -r ./src/requirements.txt
+python -m pip install -r ../src/requirements.txt
 
 # Azure AI Search のデータソース、インデックス、スキルセット、インデクサーの作成
 echo 'Setup AI Search...'
-python './src/setupaisearch.py'
-
-# # データソースを作成するスクリプトを実行する
-# echo 'Creating datasource...'
-# python ./src/create-datasource.py
-
-# # インデックスを作成するスクリプトを実行する
-# echo 'Creating index...'
-# python ./src/create-index.py
-
-# # スキルセットを作成するスクリプトを実行する
-# echo 'Creating skillset...'
-# python ./src/create-skillset.py
-
-# # インデクサを作成するスクリプトを実行する
-# echo 'Creating indexer...'
-# python ./src/create-indexer.py
+python '../src/setupaisearch.py' --azureaiserviceskey ${AZURE_AI_SERVICES_KEY} --containername ${AZURE_STORAGE_CONTAINER}
