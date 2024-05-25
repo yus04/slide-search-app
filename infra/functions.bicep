@@ -83,4 +83,3 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
 
 output id string = functionApp.id
 output name string = functionApp.name
-output apiVersion string = functionApp.properties.app
