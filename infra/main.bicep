@@ -78,12 +78,12 @@ module functions 'functions.bicep' = {
     location: location
     tags: { 'azd-service-name': 'functions' }
     azureOpenAiService: aoai.outputs.name
-    gptDeployment: openAiGptDeploymentName
+    azureOpenAiGptDeployment: openAiGptDeploymentName
     azureOpenAiToken: aoai.outputs.token
+    azureOpenAiApiVersion: openAiGptModelApiVersion
     storageName: storage.outputs.name
     storageKey: storage.outputs.key
     fileSharedName: fileSharedName
-    apiVersion: openAiGptModelApiVersion
   }
 }
 
@@ -100,6 +100,7 @@ output AZURE_SEARCH_SERVICE_KEY string = aiSearch.outputs.key
 output AZURE_OPENAI_SERVICE string = aoai.outputs.name
 output AZURE_OPENAI_GPT_DEPLOYMENT string = openAiGptDeploymentName
 output AZURE_OPENAI_API_VERSION string = openAiGptModelApiVersion
+output AZURE_OPENAI_TOKEN string = aoai.outputs.token
 
 output AZURE_STORAGE_ACCOUNT string = storage.outputs.name
 output AZURE_STORAGE_CONTAINER string = storageContainerName

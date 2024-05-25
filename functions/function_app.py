@@ -8,7 +8,7 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 AZURE_OPENAI_SERVICE = os.environ.get("AZURE_OPENAI_SERVICE")
 AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION")
-GPT_DEPLOYMENT = os.environ.get("GPT_DEPLOYMENT")
+AZURE_OPENAI_GPT_DEPLOYMENT = os.environ.get("AZURE_OPENAI_GPT_DEPLOYMENT")
 AZURE_OPENAI_TOKEN = os.environ.get("AZURE_OPENAI_TOKEN")
 
 openai_client = AzureOpenAI(
@@ -30,7 +30,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     input_values = req_body.get('values', [])
     output_values = []
 
-    for input_value in input_values:      
+    for input_value in input_values:
         image_path = input_value["data"]["image_path"]
 
         messages = [
@@ -46,7 +46,6 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             ・資料に含まれている写真にある物
             ・資料に含まれているデザインの種類
             ・資料に含まれているロゴの企業名
-
 
             ## デザインの種類の詳細
             ・グラフ (棒、円、折れ線、散布図)
@@ -67,13 +66,15 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             {"role":"user","content":[
                 {
                     "type": "image_url",
-                    "image_url": image_path
+                    "image_url": {
+                        "url": image_path
+                    }
                 }
             ]}
         ]
 
         response = openai_client.chat.completions.create(
-            model=GPT_DEPLOYMENT,
+            model=AZURE_OPENAI_GPT_DEPLOYMENT,
             messages=messages,
             temperature=0.0,
             max_tokens=1000,
@@ -107,30 +108,3 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         status_code=200,
         mimetype="application/json"
     )
-
-
-# import azure.functions as func
-# import logging
-
-# app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
-
-# @app.route(route="http_trigger_backup")
-# def http_trigger_backup(req: func.HttpRequest) -> func.HttpResponse:
-#     logging.info('Python HTTP trigger function processed a request.')
-
-#     name = req.params.get('name')
-#     if not name:
-#         try:
-#             req_body = req.get_json()
-#         except ValueError:
-#             pass
-#         else:
-#             name = req_body.get('name')
-
-#     if name:
-#         return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
-#     else:
-#         return func.HttpResponse(
-#              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-#              status_code=200
-#         )
