@@ -6,8 +6,8 @@ param resourceGroupName string = environmentName
 
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 
-param openAiResourceGroupLocation string = 'eastus2'
-param openAiGpt4VTurboDeploymentName string = 'gpt-4-turbo-vision-deploy'
+param openAiResourceGroupLocation string = 'eastus'
+param openAiGpt4VTurboDeploymentName string = 'gpt-4o-deploy'
 
 param aiSearchIndexName string = 'gptkbindex'
 param storageContainerName string = 'content'
@@ -46,8 +46,8 @@ module aoai 'aoai.bicep' = {
       name: openAiGpt4VTurboDeploymentName
       model: {
         format: 'OpenAI'
-        name: 'gpt-4'
-        version: 'turbo-2024-04-09'
+        name: 'gpt-4o'
+        version: '2024-05-13'
       }
     }
   }
