@@ -31,28 +31,24 @@ def create_indexer(azure_search_service: str, azure_search_service_key: str) -> 
                 "targetFieldName": "text"
             },
             {
-                "sourceFieldName": "/document/normalized_images/0/design_feature",
-                "targetFieldName": "design_feature"
+                "sourceFieldName": "/document/normalized_images/0/explanation",
+                "targetFieldName": "explanation"
             },
             {
-                "sourceFieldName": "/document/normalized_images/0/design_type",
-                "targetFieldName": "design_type"
+                "sourceFieldName": "/document/normalized_images/0/illustration",
+                "targetFieldName": "illustration"
             },
+            {
+                "sourceFieldName": "/document/normalized_images/0/photo",
+                "targetFieldName": "photo"
+            },
+            {
+                "sourceFieldName": "/document/normalized_images/0/design",
+                "targetFieldName": "design"
+                },
             {
                 "sourceFieldName": "/document/normalized_images/0/logo",
                 "targetFieldName": "logo"
-            },
-            {
-                "sourceFieldName": "/document/normalized_images/0/icon",
-                "targetFieldName": "icon"
-                },
-            {
-                "sourceFieldName": "/document/normalized_images/0/person",
-                "targetFieldName": "person"
-            },
-            {
-                "sourceFieldName": "/document/normalized_images/0/color",
-                "targetFieldName": "color"
             }
         ],
     }

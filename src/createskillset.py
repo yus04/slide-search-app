@@ -60,28 +60,24 @@ def create_skillset(
                 ],
                 "outputs": [
                     {
-                        "name": "design_feature",
-                        "targetName": "design_feature"
+                        "name": "explanation",
+                        "targetName": "explanation"
                     },
                     {
-                        "name": "design_type",
-                        "targetName": "design_type"
+                        "name": "illustration",
+                        "targetName": "illustration"
+                    },
+                    {
+                        "name": "photo",
+                        "targetName": "photo"
+                    },
+                    {
+                        "name": "design",
+                        "targetName": "design"
                     },
                     {
                         "name": "logo",
                         "targetName": "logo"
-                    },
-                    {
-                        "name": "icon",
-                        "targetName": "icon"
-                    },
-                    {
-                        "name": "person",
-                        "targetName": "person"
-                    },
-                    {
-                        "name": "color",
-                        "targetName": "color"
                     }
                 ],
                 "httpHeaders": {},
