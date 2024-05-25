@@ -88,12 +88,11 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             res_dict = {}
 
         data = {
-            "design_feature": res_dict.get("design_feature", ""),
-            "design_type": res_dict.get("design_type", ""),
-            "logo": res_dict.get("logo", ""),
-            "icon": res_dict.get("icon", ""),
-            "person": res_dict.get("person", ""),
-            "color": res_dict.get("color", "")
+            "explanation": res_dict.get("explanation", ""),
+            "illustration": res_dict.get("illustration", ""),
+            "photo": res_dict.get("photo", ""),
+            "design": res_dict.get("design", ""),
+            "logo": res_dict.get("logo", "")
         }
 
         output_value = {}
