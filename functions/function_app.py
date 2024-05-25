@@ -35,20 +35,34 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
         messages = [
             {"role":"system","content":"""
-                あなたは企画書のデザインに関する特徴を分析する人です。
-                以下の項目について分析し、指定された json 形式で出力してください。
-                ただし、該当しない特徴については空文字で回答して下さい。
+            あなたはプレゼンテーション資料に含まれるものを様々な項目に対して特定する人です。
+            以下の分析項目について調査し、指定された json 形式で出力してください。
+            資料に含まれるデザインの種類に関しては、デザインの種類の詳細の中から選択してください。
+            ただし、該当しない項目については空文字で回答し、該当する項目が複数ある場合は空白スペース区切りで回答して下さい。
 
-                ## 分析項目
-                ・デザインの特徴 (30 文字程度)
-                ・デザインの種類 (グラフの種類(棒、円、折れ線、散布図)、表、カレンダー、組織図)
-                ・ロゴの企業名
-                ・アイコンの種類
-                ・有名人の名前
-                ・色の種類
+            ## 分析項目
+            ・資料の説明 (50 文字程度)
+            ・資料に含まれているイラスト
+            ・資料に含まれている写真にある物
+            ・資料に含まれているデザインの種類
+            ・資料に含まれているロゴの企業名
 
-                ## 回答 json 形式
-                {"design_feature":"","design_type":"","logo":"","icon":"","person":"","color":""}
+
+            ## デザインの種類の詳細
+            ・グラフ (棒、円、折れ線、散布図)
+            ・表
+            ・リスト
+            ・階層図
+            ・概念図
+            ・カレンダー
+            ・ロードマップ
+            ・業務フロー図
+            ・システム図
+            ・ダイアグラム
+            ・プロセスマップ
+
+            ## 回答 json 形式
+            {"explanation":"","illustration":"","photo":"","design":"","logo":""}
             """},
             {"role":"user","content":[
                 {
@@ -60,7 +74,6 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
         response = openai_client.chat.completions.create(
             model=GPT_DEPLOYMENT,
-            # response_format={"type":"json_object"}, 
             messages=messages,
             temperature=0.0,
             max_tokens=1000,
