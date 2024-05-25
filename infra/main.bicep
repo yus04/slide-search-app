@@ -8,7 +8,7 @@ var resourceToken = toLower(uniqueString(subscription().id, environmentName, loc
 
 param openAiResourceGroupLocation string = 'eastus'
 param openAiGptModelName string = 'gpt-4o'
-param openAiGptModelApiVersion string = '2024-05-13'
+param openAiGptModelApiVersion string = '2023-05-15'
 param openAiGptDeploymentName string = 'gpt-4o-deploy'
 
 param aiSearchIndexName string = 'gptkbindex'
