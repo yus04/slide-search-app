@@ -7,7 +7,9 @@ param resourceGroupName string = environmentName
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 
 param openAiResourceGroupLocation string = 'eastus'
-param openAiGpt4VTurboDeploymentName string = 'gpt-4o-deploy'
+param openAiGptModelName string = 'gpt-4o'
+param openAiGptModelApiVersion string = '2024-05-13'
+param openAiGptDeploymentName string = 'gpt-4o-deploy'
 
 param aiSearchIndexName string = 'gptkbindex'
 param storageContainerName string = 'content'
@@ -43,11 +45,11 @@ module aoai 'aoai.bicep' = {
     name: 'aoai-${resourceToken}'
     location: openAiResourceGroupLocation
     deployment: {
-      name: openAiGpt4VTurboDeploymentName
+      name: openAiGptDeploymentName
       model: {
         format: 'OpenAI'
-        name: 'gpt-4o'
-        version: '2024-05-13'
+        name: openAiGptModelName
+        version: openAiGptModelApiVersion
       }
     }
   }
@@ -76,11 +78,12 @@ module functions 'functions.bicep' = {
     location: location
     tags: { 'azd-service-name': 'functions' }
     azureOpenAiService: aoai.outputs.name
-    gptDeployment: openAiGpt4VTurboDeploymentName
+    gptDeployment: openAiGptDeploymentName
     azureOpenAiToken: aoai.outputs.token
     storageName: storage.outputs.name
     storageKey: storage.outputs.key
     fileSharedName: fileSharedName
+    apiVersion: openAiGptModelApiVersion
   }
 }
 
@@ -95,7 +98,8 @@ output AZURE_SEARCH_SERVICE string = aiSearch.outputs.name
 output AZURE_SEARCH_SERVICE_KEY string = aiSearch.outputs.key
 
 output AZURE_OPENAI_SERVICE string = aoai.outputs.name
-output AZURE_OPENAI_GPT_4V_DEPLOYMENT string = openAiGpt4VTurboDeploymentName
+output AZURE_OPENAI_GPT_DEPLOYMENT string = openAiGptDeploymentName
+output AZURE_OPENAI_API_VERSION string = openAiGptModelApiVersion
 
 output AZURE_STORAGE_ACCOUNT string = storage.outputs.name
 output AZURE_STORAGE_CONTAINER string = storageContainerName

@@ -7,6 +7,7 @@ param azureOpenAiToken string
 param storageName string
 param storageKey string
 param fileSharedName string
+param apiVersion string
 
 resource hostingPlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: name
@@ -53,7 +54,7 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
         }
         {
           name: 'AZURE_OPENAI_API_VERSION'
-          value: '2023-05-15'
+          value: apiVersion
         }
         {
           name: 'GPT_DEPLOYMENT'
@@ -82,3 +83,4 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
 
 output id string = functionApp.id
 output name string = functionApp.name
+output apiVersion string = functionApp.properties.app
