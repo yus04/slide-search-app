@@ -23,8 +23,8 @@
       "openAiService": {
         "value": "${AZURE_OPENAI_SERVICE}"
       },
-      "gptDeployment": {
-        "value": "${AZURE_OPENAI_GPT_4V_DEPLOYMENT}"
+      "deployment": {
+        "value": "${AZURE_OPENAI_DEPLOYMENT}"
       },
       "storageAccount": {
         "value": "${AZURE_STORAGE_ACCOUNT}"

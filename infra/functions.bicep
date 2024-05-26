@@ -2,7 +2,7 @@ param name string
 param location string
 param tags object
 param azureOpenAiService string
-param azureOpenAiGptDeployment string
+param azureOpenAiDeployment string
 param azureOpenAiToken string
 param azureOpenAiApiVersion string
 param storageName string
@@ -58,8 +58,8 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
           value: azureOpenAiApiVersion
         }
         {
-          name: 'AZURE_OPENAI_GPT_DEPLOYMENT'
-          value: azureOpenAiGptDeployment
+          name: 'AZURE_OPENAI_DEPLOYMENT'
+          value: azureOpenAiDeployment
         }
         {
           name: 'AZURE_OPENAI_TOKEN'

@@ -8,7 +8,7 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 AZURE_OPENAI_SERVICE = os.environ.get("AZURE_OPENAI_SERVICE")
 AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION")
-AZURE_OPENAI_GPT_DEPLOYMENT = os.environ.get("AZURE_OPENAI_GPT_DEPLOYMENT")
+AZURE_OPENAI_DEPLOYMENT = os.environ.get("AZURE_OPENAI_DEPLOYMENT")
 AZURE_OPENAI_TOKEN = os.environ.get("AZURE_OPENAI_TOKEN")
 
 openai_client = AzureOpenAI(
@@ -74,7 +74,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         ]
 
         response = openai_client.chat.completions.create(
-            model=AZURE_OPENAI_GPT_DEPLOYMENT,
+            model=AZURE_OPENAI_DEPLOYMENT,
             messages=messages,
             temperature=0.0,
             max_tokens=1000,

@@ -7,9 +7,10 @@ param resourceGroupName string = environmentName
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 
 param openAiResourceGroupLocation string = 'eastus'
-param openAiGptModelName string = 'gpt-4o'
-param openAiGptModelApiVersion string = '2023-05-15'
-param openAiGptDeploymentName string = 'gpt-4o-deploy'
+param openAiModelName string = 'gpt-4o'
+param openAiModelVersion string = '2024-05-13'
+param openAiApiVersion string = '2023-05-15'
+param openAiDeploymentName string = 'gpt-4o-deploy'
 
 param aiSearchIndexName string = 'gptkbindex'
 param storageContainerName string = 'content'
@@ -45,11 +46,11 @@ module aoai 'aoai.bicep' = {
     name: 'aoai-${resourceToken}'
     location: openAiResourceGroupLocation
     deployment: {
-      name: openAiGptDeploymentName
+      name: openAiDeploymentName
       model: {
         format: 'OpenAI'
-        name: openAiGptModelName
-        version: openAiGptModelApiVersion
+        name: openAiModelName
+        version: openAiModelVersion
       }
     }
   }
@@ -78,9 +79,9 @@ module functions 'functions.bicep' = {
     location: location
     tags: { 'azd-service-name': 'functions' }
     azureOpenAiService: aoai.outputs.name
-    azureOpenAiGptDeployment: openAiGptDeploymentName
+    azureOpenAiDeployment: openAiDeploymentName
     azureOpenAiToken: aoai.outputs.token
-    azureOpenAiApiVersion: openAiGptModelApiVersion
+    azureOpenAiApiVersion: openAiApiVersion
     storageName: storage.outputs.name
     storageKey: storage.outputs.key
     fileSharedName: fileSharedName
@@ -98,8 +99,9 @@ output AZURE_SEARCH_SERVICE string = aiSearch.outputs.name
 output AZURE_SEARCH_SERVICE_KEY string = aiSearch.outputs.key
 
 output AZURE_OPENAI_SERVICE string = aoai.outputs.name
-output AZURE_OPENAI_GPT_DEPLOYMENT string = openAiGptDeploymentName
-output AZURE_OPENAI_API_VERSION string = openAiGptModelApiVersion
+output AZURE_OPENAI_DEPLOYMENT string = openAiDeploymentName
+output AZURE_OPENAI_MODEL_VERSION string = openAiModelVersion
+output AZURE_OPENAI_API_VERSION string = openAiApiVersion
 output AZURE_OPENAI_TOKEN string = aoai.outputs.token
 
 output AZURE_STORAGE_ACCOUNT string = storage.outputs.name
